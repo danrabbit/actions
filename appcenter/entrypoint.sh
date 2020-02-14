@@ -24,5 +24,19 @@ mk-build-deps --build-dep --install --remove --tool 'apt -y' --root-cmd sudo deb
 
 echo -e "\n\033[1;32mInstalled all the build dependencies!\033[0m\n"
 
+if [[ -O /home/$USER/tmp && -d /home/$USER/tmp ]]; then
+    TMPDIR=/home/$USER/tmp
+else
+    # You may wish to remove this line, it is there in case
+    # a user has put a file 'tmp' in there directory or a
+    mkdir -p /home/$USER/tmp
+    TMPDIR=$(mktemp -d /home/$USER/tmp/XXXX)
+fi
+
+TMP=$TMPDIR
+TEMP=$TMPDIR
+
+export TMPDIR TMP TEMP
+
 # Build from packaging
-TMP="/home/$USER/tmp" debuild -rsudo -b -us -uc
+debuild -rsudo -b -us -uc
