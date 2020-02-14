@@ -25,4 +25,4 @@ mk-build-deps --build-dep --install --remove --tool 'apt -y' --root-cmd sudo deb
 echo -e "\n\033[1;32mInstalled all the build dependencies!\033[0m\n"
 
 # Build from packaging
-DEB_BUILD_OPTIONS="no-automatic-dbgsym" dpkg-buildpackage -rsudo -b -us -uc
+TMP="/home/$USER/tmp" debuild -rsudo -b -us -uc
